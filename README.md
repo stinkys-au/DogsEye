@@ -1,5 +1,10 @@
 # DogsEye
 
+> [!IMPORTANT]
+> Due to licensing restrictions, **the compiled application and Tobii SDK are not included in this repository**. Permission has been requested from Tobii to obtain a licence allowing release, but no response has been received.
+>
+> Until an appropriate open-source or commercial licence is granted by Tobii, you must follow the [development documentation](docs/DEVELOPMENT.md) to obtain the SDK under its applicable licence and build the software locally.
+
 DogsEye turns Tobii head movement into bounded relative mouse movement for free-look controls in games. It is a Windows x64 desktop app built with .NET 10 and WPF, using the Tobii Game Integration SDK.
 
 Head yaw controls horizontal movement; head pitch controls vertical movement. Eye gaze does not control the camera. DogsEye runs separately from the game and sends ordinary Windows mouse movement.
