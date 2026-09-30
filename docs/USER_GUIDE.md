@@ -167,4 +167,4 @@ Pose data expires after 150 ms without fresh samples. The first recovered frame 
 
 ## Screenshot provenance
 
-These images were captured directly from the latest existing executable, with tracking OFF. Live mouse output was selected but no movement is emitted while off. No settings were changed and no compilation was performed. The screenshots show custom saved tuning rather than all default values. They contain the application window only, without personal paths, names, or email addresses. The copyright footer recently added in source will appear after a future build.
+These images were captured directly from the latest existing executable, with tracking OFF. Preview mode was selected, with Windows mouse output disabled. No settings were changed and no compilation was performed. The screenshots show custom saved tuning rather than all default values. They contain the application window only, without personal paths, names, or email addresses. The current build includes the copyright footer and the cleaned-up mouse-output label. Captures are cropped to the relevant application content with the mouse pointer outside those areas.

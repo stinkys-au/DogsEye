@@ -6,7 +6,7 @@ Head yaw controls horizontal movement; head pitch controls vertical movement. Ey
 
 ![DogsEye main window with tracking off](docs/images/main-window.png)
 
-*Captured from the latest existing executable with tracking OFF. Live output is selected, but no movement is emitted while off. The displayed 1000 Hz is a custom saved setting; new configurations default to 500 Hz.*
+*Captured from the latest existing executable with tracking OFF. Preview mode is selected, so no Windows mouse movement is emitted. The displayed 1000 Hz is a custom saved setting; new configurations default to 500 Hz.*
 
 ## Quick start
 
@@ -74,5 +74,4 @@ Published output goes to `artifacts/DogsEye`. The SDK, build output, and interme
 
 The latest compiled revision passed the Release build with zero warnings/errors and all **44 acceptance tests**. These tests use simulated poses and recording outputs. They do not establish in-game camera calibration or actual 1000 Hz timing. See [VALIDATION.md](VALIDATION.md).
 
-The screenshots were captured directly from the latest existing executable without recompiling or changing tuning. Tracking was off. The copyright footer added in source is not included in this build yet. Documentation screenshots show example settings, not recommended values for every game.
-
+The screenshots were captured directly from the latest existing executable without recompiling or changing tuning. Tracking was off. The settings screenshot includes the copyright footer; the mouse-output label no longer includes MVP wording. Screenshots are cropped to the application content with the pointer outside the captured areas. They show example settings, not recommended values for every game.
