@@ -1,0 +1,7 @@
+**/bin/
+**/obj/
+artifacts/
+tmp/
+.vs/
+sdk/
+*.user

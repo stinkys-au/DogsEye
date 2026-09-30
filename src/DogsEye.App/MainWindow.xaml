@@ -1,0 +1,59 @@
+<Window x:Class="DogsEye.App.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:DogsEye.App"
+ Title="DogsEye" Width="1180" Height="900" MinWidth="950" MinHeight="680" WindowStartupLocation="CenterScreen" Background="{StaticResource PageBrush}" Foreground="{StaticResource TextBrush}" FontFamily="Segoe UI" FontSize="14">
+ <ScrollViewer Background="{StaticResource PageBrush}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+  <Grid Margin="28">
+   <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+   <Grid Margin="0,0,0,22"><StackPanel><TextBlock Text="DogsEye" FontSize="34" FontWeight="Bold"/><TextBlock Text="Head tracking. A view that follows you." Style="{StaticResource Muted}" Margin="0,4,0,0"/></StackPanel><Border HorizontalAlignment="Right" VerticalAlignment="Center" Background="#23384D" CornerRadius="14" Padding="14,7"><TextBlock x:Name="ModeLabel" Text="PREVIEW · NO MOUSE OUTPUT" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}"/></Border></Grid>
+   <Grid Grid.Row="1"><Grid.ColumnDefinitions><ColumnDefinition Width="1.28*"/><ColumnDefinition Width="22"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+    <StackPanel>
+     <Border Style="{StaticResource Card}"><StackPanel>
+      <Grid><TextBlock Text="HEAD POSITION" FontWeight="SemiBold" Foreground="{StaticResource MutedBrush}"/><TextBlock x:Name="StateLabel" Text="OFF" HorizontalAlignment="Right" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/></Grid>
+      <local:HeadTrackingVisualizer x:Name="Visualizer" Height="310" Margin="0,12,0,6"/>
+      <TextBlock x:Name="GridCaption" Text="Tracking off · raw pose shown without a calibrated centre" Style="{StaticResource Muted}" FontSize="12"/>
+      <WrapPanel Margin="0,12,0,0"><TextBlock Text="●  Raw head pose" Foreground="#65B5FF" Margin="0,0,24,0"/><TextBlock Text="●  Mouse response" Foreground="Gold" Margin="0,0,24,0"/><TextBlock Text="···  Mouse-output limits" Foreground="#FF7070"/></WrapPanel>
+      <TextBlock Text="Recenter works while off and sets the current head pose to zero. Fixed ±180° axes keep all head angles and mouse limits in frame. Head movement never zooms or pans the chart. Yellow shows the curved mouse-response target (preview while off); red lines mark its limits. Neutral curves follow blue outside the deadzone, with smoothing off or settled. No chart scrolling or off-scale limits." Style="{StaticResource Muted}" FontSize="12" Margin="0,8,0,0"/>
+     </StackPanel></Border>
+     <Border Style="{StaticResource Card}"><StackPanel><TextBlock Text="LIVE DIAGNOSTICS" FontWeight="SemiBold" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,12"/><TextBlock x:Name="Diagnostics" FontFamily="Consolas" FontSize="13" LineHeight="24" Text="Waiting for head pose…"/></StackPanel></Border>
+    </StackPanel>
+    <StackPanel Grid.Column="2">
+     <Border Style="{StaticResource Card}"><StackPanel><TextBlock Text="COMMON SETTINGS · ACTIVATION &amp; OUTPUT" FontWeight="SemiBold" Foreground="{StaticResource MutedBrush}"/><TextBlock x:Name="DeviceLabel" Text="Detecting Tobii…" FontSize="19" FontWeight="SemiBold" Margin="0,12,0,3"/><TextBlock x:Name="RateLabel" Text="Waiting for tracking samples" Style="{StaticResource Muted}"/>
+      <WrapPanel Margin="0,18,0,10"><Button x:Name="ToggleButton" Content="Enable tracking" Click="ToggleClick" Background="#267360"/><Button x:Name="RecenterButton" Content="Recenter" Click="RecenterClick" IsEnabled="False"/></WrapPanel>
+      <Grid Margin="0,8,0,8"><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="Toggle / recenter key" Style="{StaticResource Muted}"/><TextBlock x:Name="KeyLabel" Text="` (Oem3)" Margin="0,3,0,0" FontWeight="SemiBold"/></StackPanel><Button x:Name="CaptureButton" Grid.Column="1" Content="Change" Click="CaptureClick" Margin="8,0,0,0"/></Grid>
+      <TextBlock x:Name="KeyHint" Text="Hold 3 seconds to toggle. Tap to recenter, including while off." Style="{StaticResource Muted}" FontSize="12"/>
+      <TextBlock x:Name="KeyStatus" Text="Global keyboard starting…" Foreground="{StaticResource AccentBrush}" FontSize="12" Margin="0,6,0,0"/>
+      <ProgressBar x:Name="KeyProgress" Height="4" Maximum="1" Value="0" Foreground="{StaticResource AccentBrush}" Background="#2B4059" BorderThickness="0" Margin="0,6,0,0"/>
+      <CheckBox x:Name="LiveOutputCheck" Content="Enable relative mouse output" Margin="0,16,0,8" Click="OutputClick"/>
+      <TextBlock Text="Preview first. Changing output mode stops tracking; enable it again when ready. Free-look activation stays in the game." Style="{StaticResource Muted}" FontSize="12"/>
+      <CheckBox x:Name="AudioCheck" Content="Audio feedback" Click="PreferencesClick"/>
+     </StackPanel></Border>
+     <Border Style="{StaticResource Card}"><StackPanel><TextBlock Text="STATUS OVERLAY" FontWeight="SemiBold" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,8"/><CheckBox x:Name="OverlayCheck" Content="Show status overlay" Click="PreferencesClick"/><CheckBox x:Name="TopmostCheck" Content="Always on top" Click="PreferencesClick"/><CheckBox x:Name="LockedCheck" Content="Lock position and pass clicks through" Click="PreferencesClick"/><Button Content="Reset position" Click="ResetOverlayClick" HorizontalAlignment="Left" Margin="0,8,0,0"/><TextBlock Text="Drag the unlocked overlay to any monitor. Use borderless or windowed mode for visibility over games." Style="{StaticResource Muted}" FontSize="12" Margin="0,12,0,0"/></StackPanel></Border>
+    </StackPanel>
+   </Grid>
+   <StackPanel Grid.Row="2">
+    <Border Style="{StaticResource Card}"><Expander x:Name="TrackingSettingsExpander" Foreground="{StaticResource TextBrush}" Header="Settings · common tuning and advanced controls" IsExpanded="True"><StackPanel Margin="0,18,0,0"><TextBlock Text="Valid changes save and take effect automatically after a brief pause. Tracking keeps its calibrated centre. Camera ranges are mouse counts before the safety factor." Style="{StaticResource Muted}" Margin="0,0,0,14"/>
+     <TextBlock Text="COMMON SETTINGS · LOOK AND FEEL" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}" Margin="0,0,0,12"/>
+     <TextBlock Text="LOOK RESPONSE · SINGLE-POINT S CURVES" FontWeight="SemiBold"/>
+     <TextBlock Text="Drag each point to shape that axis. Above the diagonal = more mouse response early in the turn; below = less. A point on the diagonal is neutral: mouse response follows head movement. Each curve is mirrored in both directions." Style="{StaticResource Muted}" Margin="0,6,0,12"/>
+     <Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="20"/><ColumnDefinition/></Grid.ColumnDefinitions>
+      <StackPanel><TextBlock Text="X axis · yaw · left / right" FontWeight="SemiBold"/><local:LookCurveEditor x:Name="LookCurveXEditor" Height="260" AutomationProperties.Name="X axis yaw S curve point"/><Button Content="Neutral X curve" Click="ResetXCurveClick" HorizontalAlignment="Left"/></StackPanel>
+      <StackPanel Grid.Column="2"><TextBlock Text="Y axis · pitch · up / down" FontWeight="SemiBold"/><local:LookCurveEditor x:Name="LookCurveYEditor" Height="260" AutomationProperties.Name="Y axis pitch S curve point"/><Button Content="Neutral Y curve" Click="ResetYCurveClick" HorizontalAlignment="Left"/></StackPanel>
+     </Grid>
+     <TextBlock Text="The point sets head movement % → camera turn %. Deadzones and maximum limits stay unchanged. Arrow keys move the focused point; Home resets it. Curve changes save and take effect automatically." Style="{StaticResource Muted}" FontSize="12" Margin="0,12,0,12"/>
+     <CheckBox x:Name="AdaptiveCheck" Content="Adaptive smoothing · steadier when still, faster when turning"/>
+     <TextBlock Text="Smoothing 0 disables filtering. Deadzones ignore small movements around centre." Style="{StaticResource Muted}" FontSize="12" Margin="0,0,0,8"/>
+     <UniformGrid x:Name="CommonFields" Columns="3"/>
+     <StackPanel x:Name="SettingsSections"/>
+     <TextBlock x:Name="SettingsSaveStatus" Text="All changes saved automatically." Style="{StaticResource Muted}" Margin="0,12,0,0"/></StackPanel></Expander></Border>
+    <TextBlock x:Name="MessageLabel" Style="{StaticResource Muted}" Text="Ready · tracking starts off. Settings are saved locally." TextWrapping="Wrap"/>
+    <TextBlock Text="Copyright 2026 Stinkys (AU)" Style="{StaticResource Muted}" FontSize="12" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+   </StackPanel>
+  </Grid>
+ </ScrollViewer>
+</Window>
+
+
+
+
+
+
+

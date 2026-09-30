@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DogsEye.Core/DogsEye.Core.csproj" />
+    <Project Path="src/DogsEye.App/DogsEye.App.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DogsEye.Tests/DogsEye.Tests.csproj" />
+  </Folder>
+</Solution>
